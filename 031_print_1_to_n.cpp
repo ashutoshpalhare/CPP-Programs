@@ -1,0 +1,3 @@
+#include <iostream>
+using namespace std;
+int main(){int n;cout<<"Enter N: ";if(!(cin>>n)||n<1)return 1;for(int i=1;i<=n;i++)cout<<i<<' ';cout<<'\\n';}
