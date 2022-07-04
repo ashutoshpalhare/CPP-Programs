@@ -1,0 +1,3 @@
+#include <iostream>
+using namespace std;
+int main(){int n;cout<<"Rows: ";if(!(cin>>n)||n<1||n>50)return 1;for(int i=1;i<=n;i++){for(int j=1;j<=i;j++)cout<<j<<' ';cout<<'\\n';}}
