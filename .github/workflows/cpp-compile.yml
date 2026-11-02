@@ -1,0 +1,37 @@
+name: C++ Compile Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    name: Compile all 100 programs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify program count and compile each source file
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=( *.cpp )
+
+          if [ "${#files[@]}" -ne 100 ]; then
+            echo "::error::Expected 100 root-level C++ files, found ${#files[@]}."
+            exit 1
+          fi
+
+          for file in "${files[@]}"; do
+            echo "Checking ${file}"
+            g++ -std=c++17 -Wall -Wextra -pedantic -fsyntax-only "${file}"
+          done
+
+          echo "Successfully syntax-checked all ${#files[@]} C++ programs."
